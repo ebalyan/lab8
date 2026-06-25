@@ -23,8 +23,12 @@ if(root == nullptr) {
 	return 0;
 }
 
-if(root->key > R){
-	return rangeSum(root->left, L, R);
+ if(root->key < L) {
+        return rangeSum(root->right, L, R);
+    }
+
+    if(root->key > R) {
+        return rangeSum(root->left, L, R);
     }
 
     return root->key + rangeSum(root->left, L, R) + rangeSum(root->right, L, R);
@@ -43,6 +47,19 @@ int getHeight(Node *root) {
 
     
 bool isBalanced(Node *root) {
+	if(root == nullptr) {
+        return true;
+    }
+
+    int leftHeight = getHeight(root->left);
+    int rightHeight = getHeight(root->right);
+
+    if(abs(leftHeight - rightHeight) > 1) {
+        return false;
+    }
+
+    return isBalanced(root->left) && isBalanced(root->right);
+	
 	//Get the heights of the left and right subtrees - helper func?
 	//Determine if this node is balanced! If not ret false!
 
@@ -73,18 +90,6 @@ return its level order traversal as:
 ]
 
 */
-if(root == nullptr) {
-	return true;
-}
-int leftHeight = getHeight(root->left);
-int rightHeight = getHeight(root->right);
-
-if(abs(leftHeight - rightHeight) > 1) {
-	return false;
-}
-
-return isBalanced(root->left) && isBalanced(root->right);
-}
 
 vector<vector<int>> levelOrder(Node* root) {
 	vector<vector<int>> results;
