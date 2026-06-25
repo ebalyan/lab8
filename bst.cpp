@@ -93,8 +93,6 @@ return its level order traversal as:
 
 vector<vector<int>> levelOrder(Node* root) {
 	vector<vector<int>> results;
-    return results;
-}
 
     if(root == nullptr) {
         return results;
